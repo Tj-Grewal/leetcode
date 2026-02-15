@@ -36,4 +36,22 @@ class Solution:
         
         return head
     
-    
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        # second approach with a dummy node (sentinel)
+        dummy = ListNode(0, head) # val is 0 and next is head
+        # dummy -> head -> rest of the list
+
+        left = dummy
+        right = head
+
+        while n > 0:
+            right = right.next
+            n -= 1
+
+        while right:
+            right = right.next
+            left = left.next
+        
+        left.next = left.next.next
+        return dummy.next
+        
