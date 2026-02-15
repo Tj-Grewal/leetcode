@@ -52,5 +52,40 @@ class Solution:
             newCurr = temp
 
             
-
+    # TWO ALGOS - 1. Reverse the list from mid point
+    #             2. Then merge the two lists from end to mid
+    def reorderList(self, head: Optional[ListNode]) -> None:
         
+        fast = head.next
+        slow = head
+        
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        second = slow.next # the middle of the list
+        slow.next = None
+
+        prev = None
+        #  now reverse the back half
+        while second:
+            temp = second.next
+            second.next = prev
+            prev = second
+            second = temp
+
+        # new tail going backwards is now PREV
+        first = head
+        second = prev
+
+        while second:
+            # save the next for both lists
+            t1, t2 = first.next, second.next
+
+            # do the swap, splice in second list node
+            first.next = second
+            second.next = t1
+            
+            # update nodes to new nexts for the continuing iteration
+            first = t1
+            second = t2
