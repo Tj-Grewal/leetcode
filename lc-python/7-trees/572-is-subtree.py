@@ -34,3 +34,16 @@ class Solution:
             return False
 
         return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+    
+    
+    # another version
+    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+        if not subRoot:
+            return True
+        if not root:
+            return False
+
+        if self.sameTree(root, subRoot):
+            return True
+        return (self.isSubtree(root.left, subRoot) or
+               self.isSubtree(root.right, subRoot))
