@@ -51,6 +51,19 @@ class MedianFinder:
 # Most optimal solution is to use two heaps, one min and one max, to keep track of the median in O(log n) time.
 # The idea is to maintain the max heap for the smaller half of the numbers and the min heap for the larger half. 
 # This way, the median can be easily calculated from the tops of the two heaps.
+# The max heap will store the smaller half of the numbers, and the min heap will store the larger half.
+# When a new number is added, it is compared to the current median and added to the appropriate heap.
+# After adding the number, the heaps are balanced to ensure that their sizes differ by at most one.
+# The median can then be calculated based on the sizes of the heaps:
+# - If the max heap has more elements, the median is the top of the max heap.
+# - If the min heap has more elements, the median is the top of the min heap. 
+# - If both heaps have the same number of elements, the median is the average of the tops of both heaps.
+# This approach allows for efficient insertion and retrieval of the median, 
+# making it suitable for a data stream where numbers are continuously added.
+# The time complexity for adding a number is O(log n) due to the heap operations, 
+# and the time complexity for finding the median is O(1) since it only involves accessing the tops of the heaps.
+# but for inserting a number, we have to do a heap push and possibly a heap pop, which takes O(log n) time.
+# The space complexity is O(n) in the worst case, as all numbers could be stored in one of the heaps.
 import heapq
 
 class MedianFinder:
